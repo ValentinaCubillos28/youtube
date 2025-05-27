@@ -1,103 +1,66 @@
-/* Usuarios - Perfil del Usuario */
 .perfil-container {
-  max-width: 800px;
-  margin: 40px auto;
+  max-width: 600px;
+  margin: 30px auto;
   padding: 20px;
-  background-color: white;
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: sans-serif;
 }
 
-.perfil-container h2 {
+h2, h3 {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 28px;
-  color: #202020;
+  color: #333;
 }
 
-.perfil-container label {
+.perfil-form label {
   display: block;
-  font-weight: bold;
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
-.perfil-container input[type="text"],
-.perfil-container input[type="email"],
-.perfil-container input[type="date"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
-.perfil-container button {
-  background-color: #cc0000;
+.perfil-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.btn-guardar, .btn-agregar, .btn-logout {
+  background: #4CAF50;
   color: white;
-  padding: 10px 18px;
+  padding: 10px 15px;
+  margin: 10px 0;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
 }
 
-.perfil-container button:hover {
-  background-color: #e60000;
+.btn-guardar:hover, .btn-agregar:hover, .btn-logout:hover {
+  background: #45a049;
 }
 
-.perfil-container hr {
-  margin: 30px 0;
-}
-
-.perfil-container h3 {
-  margin-top: 20px;
-  font-size: 22px;
+.imagenes-seccion {
+  text-align: center;
 }
 
 .imagenes-list {
   list-style: none;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
 }
 
 .imagenes-list li {
-  background-color: #f9f9f9;
-  padding: 10px;
-  border-radius: 8px;
-  text-align: center;
+  margin: 10px 0;
 }
 
 .imagenes-list img {
-  max-width: 150px;
-  height: auto;
-  border-radius: 4px;
+  max-width: 100%;
+  border-radius: 8px;
 }
 
-.perfil-container .logout {
-  background-color: #555;
-}
-
-.perfil-container .logout:hover {
-  background-color: #333;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .perfil-container {
-    margin: 20px;
-    padding: 15px;
-  }
-
-  .imagenes-list {
-    flex-direction: column;
-  }
-
-  .imagenes-list img {
-    width: 100%;
-    max-width: 300px;
-  }
+.cargando {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 50px;
 }

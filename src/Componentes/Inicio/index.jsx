@@ -12,14 +12,12 @@ function Inicio() {
   const [videos, setVideos] = useState([]);
   const { tipoSeleccionado, setTipoSeleccionado } = useContext(AppContext);
 
-  // Cargar videos populares al inicio y cuando cambia el filtro o búsqueda vacía
   useEffect(() => {
     if (busqueda.trim().length === 0) {
       fetchVideosPopularesPorCategoria(tipoSeleccionado);
     }
   }, [tipoSeleccionado]);
 
-  // Cuando cambia la búsqueda, buscar con búsqueda + filtro ignorado (puedes ajustar si quieres)
   useEffect(() => {
     if (busqueda.trim().length >= 3) {
       fetchVideosBusqueda(busqueda);
@@ -28,7 +26,6 @@ function Inicio() {
     }
   }, [busqueda]);
 
-  // Fetch videos populares por categoría usando videos?chart=mostPopular&videoCategoryId=
   const fetchVideosPopularesPorCategoria = async (categoryId) => {
     try {
       const url = categoryId === '0'
@@ -43,7 +40,6 @@ function Inicio() {
     }
   };
 
-  // Buscar videos por texto (sin filtro de categoría porque el search no soporta videoCategoryId)
   const fetchVideosBusqueda = async (query) => {
     try {
       const response = await fetch(
@@ -60,51 +56,53 @@ function Inicio() {
     setTipoSeleccionado(categoryId);
   };
 
+  // 💡 Navegar a Usuarios.jsx
+  const handleIrUsuarios = () => {
+    navigate("/usuarios");
+  };
+
   return (
     <>
       <header>
         <h1>Mi YouTube</h1>
-        <button type="button">Usuario</button>
+        <button type="button" onClick={handleIrUsuarios}>Usuario</button>
       </header>
       <main>
-      <input
-        type="text"
-        placeholder="Buscar videos en YouTube"
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-        className="c-buscador"
-      />
+        <input
+          type="text"
+          placeholder="Buscar videos en YouTube"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          className="c-buscador"
+        />
 
-      <Filtro tipoSeleccionado={tipoSeleccionado} onTipoChange={handleTipoChange} />
+        <Filtro tipoSeleccionado={tipoSeleccionado} onTipoChange={handleTipoChange} />
 
-
-      <section className='c-lista'>
-        {videos && videos.length > 0 ? (
-          videos.map((video) => {
-            // En "videos?chart=mostPopular", el id del video está en video.id, no video.id.videoId
-            const videoId = video.id.videoId || video.id;
-
-            return (
-              <div
-                className='c-lista-video'
-                onClick={() => navigate(`/video/${videoId}`)}
-                key={videoId}
-              >
-                <img
-                  src={video.snippet.thumbnails.medium.url}
-                  alt={video.snippet.title}
-                  width='auto'
-                  height='120'
-                  loading='lazy'
-                />
-                <p>{video.snippet.title}</p>
-              </div>
-            );
-          })
-        ) : (
-          <p>No hay videos para mostrar</p>
-        )}
-      </section>
+        <section className='c-lista'>
+          {videos && videos.length > 0 ? (
+            videos.map((video) => {
+              const videoId = video.id.videoId || video.id;
+              return (
+                <div
+                  className='c-lista-video'
+                  onClick={() => navigate(`/video/${videoId}`)}
+                  key={videoId}
+                >
+                  <img
+                    src={video.snippet.thumbnails.medium.url}
+                    alt={video.snippet.title}
+                    width='auto'
+                    height='120'
+                    loading='lazy'
+                  />
+                  <p>{video.snippet.title}</p>
+                </div>
+              );
+            })
+          ) : (
+            <p>No hay videos para mostrar</p>
+          )}
+        </section>
       </main>
       <footer>
         © 2025 Mi YouTube - Todos los derechos reservados
@@ -114,3 +112,4 @@ function Inicio() {
 }
 
 export default Inicio;
+

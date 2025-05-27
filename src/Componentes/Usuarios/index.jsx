@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabase";
-import './style.css';
+import "./style.css"; 
 
 export default function Usuarios() {
   const [usuario, setUsuario] = useState(null);
@@ -9,7 +9,7 @@ export default function Usuarios() {
     correo: "",
     fecha_nacimiento: "",
     telefono: "",
-    roll: ""
+    roll: "",
   });
   const [nuevaUrl, setNuevaUrl] = useState("");
   const [imagenes, setImagenes] = useState([]);
@@ -79,58 +79,77 @@ export default function Usuarios() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.reload(); // Recarga la página al cerrar sesión
+    window.location.reload();
   };
 
-  if (!usuario) return <p>Cargando...</p>;
+  if (!usuario) return <p className="cargando">Cargando datos...</p>;
 
   return (
     <div className="perfil-container">
       <h2>Perfil de Usuario</h2>
-      <label>Nombre:
-        <input name="nombre" value={form.nombre} onChange={handleChange} />
-      </label>
-      <label>Correo:
-        <input name="correo" value={form.correo} onChange={handleChange} />
-      </label>
-      <label>Fecha de nacimiento:
-        <input type="date" name="fecha_nacimiento"
-          value={form.fecha_nacimiento} onChange={handleChange} />
-      </label>
-      <label>Teléfono:
-        <input name="telefono" value={form.telefono} onChange={handleChange} />
-      </label>
-      <label>Rol:
-        <input name="roll" value={form.roll} onChange={handleChange} />
-      </label>
-      <button onClick={handleUpdate}>Guardar cambios</button>
+      <div className="perfil-form">
+        <label>
+          Nombre:
+          <input name="nombre" value={form.nombre} onChange={handleChange} />
+        </label>
+        <label>
+          Correo:
+          <input name="correo" value={form.correo} onChange={handleChange} />
+        </label>
+        <label>
+          Fecha de nacimiento:
+          <input
+            type="date"
+            name="fecha_nacimiento"
+            value={form.fecha_nacimiento}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Teléfono:
+          <input name="telefono" value={form.telefono} onChange={handleChange} />
+        </label>
+        <label>
+          Rol:
+          <input name="roll" value={form.roll} onChange={handleChange} />
+        </label>
+        <button className="btn-guardar" onClick={handleUpdate}>
+          Guardar cambios
+        </button>
+      </div>
 
       <hr />
 
-      <h3>Agregar imagen</h3>
-      <input
-        type="text"
-        placeholder="URL de la imagen"
-        value={nuevaUrl}
-        onChange={(e) => setNuevaUrl(e.target.value)}
-      />
-      <button onClick={handleAgregarUrl}>Agregar</button>
+      <div className="imagenes-seccion">
+        <h3>Agregar Imagen</h3>
+        <input
+          type="text"
+          placeholder="URL de la imagen"
+          value={nuevaUrl}
+          onChange={(e) => setNuevaUrl(e.target.value)}
+        />
+        <button className="btn-agregar" onClick={handleAgregarUrl}>
+          Agregar
+        </button>
 
-      <h3>Imágenes guardadas</h3>
-      <ul className="imagenes-list">
-        {imagenes.map((img) => (
-          <li key={img.id}>
-            <img src={img.url} alt="Imagen" />
-            <br />
-            <button onClick={() => handleEliminarImagen(img.id)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
+        <h3>Imágenes guardadas</h3>
+        <ul className="imagenes-list">
+          {imagenes.map((img) => (
+            <li key={img.id}>
+              <img src={img.url} alt="Imagen" />
+              <button onClick={() => handleEliminarImagen(img.id)}>
+                Eliminar
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <hr />
 
-      <h2>Quiero cerrar sesión</h2>
-      <button className="logout" onClick={handleLogout}>Cerrar sesión</button>
+      <button className="btn-logout" onClick={handleLogout}>
+        Cerrar sesión
+      </button>
     </div>
   );
 }
