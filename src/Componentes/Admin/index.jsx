@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabase";
 import { useNavigate } from "react-router-dom";
+import "./style.css";
 
 function Admin() {
   const [usuarios, setUsuarios] = useState([]);
@@ -20,11 +21,11 @@ function Admin() {
 
       const { data, error } = await supabase
         .from("usuario")
-        .select("roll")
+        .select("rol")
         .eq("id", user.id)
         .single();
 
-      if (error || !data || data.roll !== "admin") {
+      if (error || !data || data.rol !== "admin") {
         navigate("/");
         return;
       }
@@ -42,7 +43,7 @@ function Admin() {
       try {
         const { data: usuariosData, error: usuariosError } = await supabase
           .from("usuario")
-          .select("id, nombre, correo, roll, telefono");
+          .select("id, nombre, correo, rol, telefono");
 
         const { data: fotosData, error: fotosError } = await supabase
           .from("multimedia")
@@ -141,6 +142,7 @@ function Admin() {
             <th>Nombre</th>
             <th>Correo</th>
             <th>Teléfono</th>
+            <th>Rol</th>
             <th>Fotos</th>
             <th>Acciones</th>
           </tr>
@@ -164,13 +166,13 @@ function Admin() {
                   onChange={(e) => handleChange(e, usuario.id, "telefono")}
                 />
               </td>
+              <td>{usuario.rol}</td>
               <td>
                 {usuario.fotos.map((foto) => (
-                  <div key={foto.id} style={{ display: "inline-block", marginRight: "10px" }}>
+                  <div key={foto.id} className="foto-container">
                     <img
                       src={foto.url}
                       alt={`Foto de ${usuario.nombre}`}
-                      style={{ width: "100px", height: "auto", marginBottom: "5px" }}
                     />
                     <button onClick={() => eliminarImagen(foto.id)}>Eliminar</button>
                   </div>
