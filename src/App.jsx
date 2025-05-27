@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AppProvider } from './Componentes/Contexto/contexto';
-import { supabase } from "../supabase";
+import { supabase } from "./supabase";
 
 import Menu from './Componentes/Menu';
 import Usuarios from './Componentes/Usuarios';
