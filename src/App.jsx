@@ -39,16 +39,17 @@ function App() {
   return (
     <AppProvider>
       <Router>
-        {usuario && <Menu />}  
+        {usuario && <Menu />}
         <Routes>
           <Route path="/" element={usuario ? <Inicio /> : <Navigate to="/login" />} />
           <Route path="/usuarios" element={usuario ? <Usuarios /> : <Navigate to="/login" />} />
-          <Route path="/registro" element={usuario ? <Registro /> : <Navigate to="/login" />} />
+          <Route path="/registro" element={<Registro />} />
           <Route path="/admin" element={usuario ? <Admin /> : <Navigate to="/login" />} />
           <Route path="/likes" element={usuario ? <Likes /> : <Navigate to="/login" />} />
           <Route path="/videos" element={usuario ? <Videos /> : <Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
         </Routes>
+
       </Router>
     </AppProvider>
   );
