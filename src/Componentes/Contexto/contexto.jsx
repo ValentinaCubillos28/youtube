@@ -3,9 +3,9 @@ import { createContext, useState, useEffect } from 'react';
 export const AppContext = createContext();
 
 export function AppProvider({ children }) {
-  const TOTAL_POKES = 1025;
+  const API_KEY = 'AIzaSyAenD_kvHydHFx0HlxDkMxNPPEo6BLdiys';
 
-  // Cargar Likes desde localStorage o inicializar vacío
+  // Likes guardados en localStorage
   const [likes, setLikes] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('likes')) || [];
@@ -14,30 +14,26 @@ export function AppProvider({ children }) {
     }
   });
 
-  const [data, setData] = useState([]);
-  const [tipoSeleccionado, setTipoSeleccionado] = useState('All');
+  const [videos, setVideos] = useState([]); // aquí guardamos los videos
+  const [busqueda, setBusqueda] = useState('trending'); // palabra inicial
+  const [tipoSeleccionado, setTipoSeleccionado] = useState('All'); // puedes usar esto para categorías si quieres
 
-  // Fetch datos de Pokémon al cambiar el tipo
+  // Fetch videos cuando cambia la búsqueda
   useEffect(() => {
-    const obtenerDatos = async () => {
+    const obtenerVideos = async () => {
       try {
-        if (tipoSeleccionado === 'All') {
-          const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${TOTAL_POKES}`);
-          const json = await res.json();
-          setData(json.results);
-        } else {
-          const res = await fetch(`https://pokeapi.co/api/v2/type/${tipoSeleccionado}`);
-          const json = await res.json();
-          const listaFiltrada = json.pokemon.map((p) => p.pokemon);
-          setData(listaFiltrada);
-        }
+        const res = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${encodeURIComponent(busqueda)}&key=${API_KEY}`
+        );
+        const json = await res.json();
+        setVideos(json.items);
       } catch (error) {
-        console.error('Error al obtener datos:', error);
+        console.error('Error al obtener videos:', error);
       }
     };
 
-    obtenerDatos();
-  }, [tipoSeleccionado]);
+    obtenerVideos();
+  }, [busqueda]);
 
   // Guardar Likes en localStorage cuando cambian
   useEffect(() => {
@@ -49,11 +45,12 @@ export function AppProvider({ children }) {
       value={{
         likes,
         setLikes,
-        data,
-        setData,
+        videos,
+        setVideos,
+        busqueda,
+        setBusqueda,
         tipoSeleccionado,
         setTipoSeleccionado,
-        totalPokes: TOTAL_POKES,
       }}
     >
       {children}

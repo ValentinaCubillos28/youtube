@@ -48,6 +48,7 @@ function App() {
           <Route path="/likes" element={usuario ? <Likes /> : <Navigate to="/login" />} />
           <Route path="/videos" element={usuario ? <Videos /> : <Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/inicio" element={<Inicio />} />
         </Routes>
 
       </Router>
