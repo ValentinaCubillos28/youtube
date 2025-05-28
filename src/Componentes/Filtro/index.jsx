@@ -8,7 +8,6 @@ function Filtro({ tipoSeleccionado, onTipoChange }) {
     { id: "10", label: "Videos Musicales" },
     { id: "15", label: "Mascotas y Animales" },
     { id: "17", label: "Deportes" },
-    // Añade más categorías si quieres
   ];
 
   return (

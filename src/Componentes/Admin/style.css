@@ -5,6 +5,8 @@
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  overflow-x: auto; /* Para que la tabla no se desborde */
 }
 
 .admin-container h1 {
@@ -17,6 +19,7 @@
 .admin-container table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 600px; /* Evitar que la tabla se achique demasiado */
 }
 
 .admin-container th,
@@ -24,6 +27,7 @@
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
+  word-wrap: break-word;
 }
 
 .admin-container th {
@@ -37,6 +41,7 @@
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .admin-container button {
@@ -46,6 +51,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .admin-container button:hover {
@@ -63,4 +69,73 @@
   height: auto;
   border-radius: 5px;
   margin-bottom: 5px;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .admin-container {
+    margin: 20px 10px;
+    padding: 15px;
+  }
+
+  .admin-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .admin-container table {
+    min-width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .admin-container th,
+  .admin-container td {
+    padding: 8px 6px;
+  }
+
+  .admin-container input[type="text"],
+  .admin-container input[type="tel"] {
+    width: 100%;
+    padding: 6px;
+  }
+
+  .admin-container button {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .foto-container img {
+    width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-container {
+    margin: 15px 5px;
+    padding: 10px;
+  }
+
+  .admin-container h1 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+
+  .admin-container table {
+    font-size: 0.8rem;
+  }
+
+  .admin-container th,
+  .admin-container td {
+    padding: 6px 4px;
+  }
+
+  .admin-container button {
+    padding: 6px 8px;
+    font-size: 0.85rem;
+  }
+
+  .foto-container img {
+    width: 70px;
+  }
 }

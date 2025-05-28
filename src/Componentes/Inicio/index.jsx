@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import './inicio.css';
 import Filtro from '../Filtro';
 
-const API_KEY = 'AIzaSyAenD_kvHydHFx0HlxDkMxNPPEo6BLdiys';
+const API_KEY = 'AIzaSyADbXCvUl0tZLvYMYAwy4QwOcMKGKts06Q';
 
 function Inicio() {
   const navigate = useNavigate();

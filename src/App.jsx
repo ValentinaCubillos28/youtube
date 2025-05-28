@@ -10,7 +10,7 @@ import Registro from './Componentes/Registro';
 import Inicio from './Componentes/Inicio';
 import Admin from './Componentes/Admin';
 import Likes from './Componentes/Likes';
-import Videos from './Componentes/Videos';
+import VideoDetalle from './Componentes/Videos';
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -43,10 +43,10 @@ function App() {
         <Routes>
           <Route path="/" element={usuario ? <Inicio /> : <Navigate to="/login" />} />
           <Route path="/usuarios" element={usuario ? <Usuarios /> : <Navigate to="/login" />} />
+          <Route path="/video/:id" element={<VideoDetalle />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/admin" element={usuario ? <Admin /> : <Navigate to="/login" />} />
           <Route path="/likes" element={usuario ? <Likes /> : <Navigate to="/login" />} />
-          <Route path="/videos" element={usuario ? <Videos /> : <Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/inicio" element={<Inicio />} />
         </Routes>

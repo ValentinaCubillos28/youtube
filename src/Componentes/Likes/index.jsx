@@ -1,28 +1,28 @@
-import React from 'react';
+import { useContext } from 'react';
+import { AppContext } from '../Contexto/contexto';
+import { Link } from 'react-router-dom'; // 👈 Importar Link
+import './likes.css';
 
-const Likes = () => {
-  const likes = [
-    // Este array debería venir de props o de una consulta a Supabase
-    {
-      id: 1,
-      thumbnail: 'https://via.placeholder.com/150',
-      titulo: 'Video de ejemplo',
-    },
-  ];
+export default function Likes() {
+  const { likes } = useContext(AppContext);
 
   return (
-    <div className={styles.container}>
-      <h1>Mis Likes</h1>
-      <div className={styles['likes-list']}>
-        {likes.map((video) => (
-          <div className={styles['like-card']} key={video.id}>
-            <img src={video.thumbnail} alt={video.titulo} />
-            <h3>{video.titulo}</h3>
-          </div>
-        ))}
-      </div>
+    <div className="likes-container">
+      <h2>Videos que te gustaron</h2>
+      {likes.length === 0 ? (
+        <p>No has dado like a ningún video aún.</p>
+      ) : (
+        <div className="likes-grid">
+          {likes.map((video) => (
+            <Link to={`/video/${video.id}`} key={video.id} className="like-card-link">
+              <div className="like-card">
+                <img src={video.thumbnail} alt={video.title} />
+                <h4>{video.title}</h4>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
-};
-
-export default Likes;
+}

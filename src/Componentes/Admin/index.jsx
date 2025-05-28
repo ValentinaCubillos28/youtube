@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabase";
 import { useNavigate } from "react-router-dom";
-import "./style.css";
 
 function Admin() {
   const [usuarios, setUsuarios] = useState([]);
@@ -82,12 +81,17 @@ function Admin() {
         .eq("id", id);
 
       if (error) {
-        console.error("Error al actualizar usuario:", error);
+        console.error(error);
       } else {
         setUsuarios((prev) =>
           prev.map((usuario) =>
             usuario.id === id
-              ? { ...usuario, nombre: nuevoNombre, correo: nuevoCorreo, telefono: nuevoTelefono }
+              ? {
+                  ...usuario,
+                  nombre: nuevoNombre,
+                  correo: nuevoCorreo,
+                  telefono: nuevoTelefono,
+                }
               : usuario
           )
         );
@@ -108,6 +112,7 @@ function Admin() {
         console.error("Error al eliminar la imagen:", error);
       } else {
         setFotos((prevFotos) => prevFotos.filter((foto) => foto.id !== imagenId));
+
         setUsuarios((prevUsuarios) =>
           prevUsuarios.map((usuario) => ({
             ...usuario,
@@ -142,7 +147,6 @@ function Admin() {
             <th>Nombre</th>
             <th>Correo</th>
             <th>Teléfono</th>
-            <th>Rol</th>
             <th>Fotos</th>
             <th>Acciones</th>
           </tr>
@@ -166,13 +170,13 @@ function Admin() {
                   onChange={(e) => handleChange(e, usuario.id, "telefono")}
                 />
               </td>
-              <td>{usuario.rol}</td>
               <td>
                 {usuario.fotos.map((foto) => (
-                  <div key={foto.id} className="foto-container">
+                  <div key={foto.id} style={{ display: "inline-block", marginRight: "10px" }}>
                     <img
                       src={foto.url}
                       alt={`Foto de ${usuario.nombre}`}
+                      style={{ width: "100px", height: "auto", marginBottom: "5px" }}
                     />
                     <button onClick={() => eliminarImagen(foto.id)}>Eliminar</button>
                   </div>
