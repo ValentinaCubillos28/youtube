@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../Contexto/contexto';
 import { useNavigate } from "react-router-dom";
-import './style.css';
+import './inicio.css';
 import Filtro from '../Filtro';
 
 const API_KEY = 'AIzaSyAenD_kvHydHFx0HlxDkMxNPPEo6BLdiys';
@@ -62,8 +62,8 @@ function Inicio() {
   };
 
   return (
-    <>
-      <header>
+      <div className="inicio-container">
+      <header className="inicio-header">
         <h1>Mi YouTube</h1>
         <button type="button" onClick={handleIrUsuarios}>Usuario</button>
       </header>
@@ -73,26 +73,24 @@ function Inicio() {
           placeholder="Buscar videos en YouTube"
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
-          className="c-buscador"
+          className="inicio-buscador"
         />
 
         <Filtro tipoSeleccionado={tipoSeleccionado} onTipoChange={handleTipoChange} />
 
-        <section className='c-lista'>
+        <section className='inicio-lista'>
           {videos && videos.length > 0 ? (
             videos.map((video) => {
               const videoId = video.id.videoId || video.id;
               return (
                 <div
-                  className='c-lista-video'
+                  className='inicio-lista-video'
                   onClick={() => navigate(`/video/${videoId}`)}
                   key={videoId}
                 >
                   <img
                     src={video.snippet.thumbnails.medium.url}
                     alt={video.snippet.title}
-                    width='auto'
-                    height='120'
                     loading='lazy'
                   />
                   <p>{video.snippet.title}</p>
@@ -107,7 +105,7 @@ function Inicio() {
       <footer>
         © 2025 Mi YouTube - Todos los derechos reservados
       </footer>
-    </>
+    </div>
   );
 }
 

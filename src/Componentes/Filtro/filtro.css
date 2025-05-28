@@ -1,0 +1,24 @@
+.c-filtro-dropdown {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.c-filtro-select {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 0.6em 1em;
+  font-size: 1rem;
+  border: 2px solid #ff0000;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.c-filtro-select:hover,
+.c-filtro-select:focus {
+  border-color: #cc0000;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+}

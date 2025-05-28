@@ -1,3 +1,5 @@
+import './filtro.css'
+
 function Filtro({ tipoSeleccionado, onTipoChange }) {
   const tipos = [
     { id: "0", label: "Todos" },
