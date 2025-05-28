@@ -1,4 +1,4 @@
-import './filtro.css'
+import './filtro.css';
 
 function Filtro({ tipoSeleccionado, onTipoChange }) {
   const tipos = [
@@ -8,22 +8,21 @@ function Filtro({ tipoSeleccionado, onTipoChange }) {
     { id: "10", label: "Videos Musicales" },
     { id: "15", label: "Mascotas y Animales" },
     { id: "17", label: "Deportes" },
-    // Añade más categorías que quieras usar según YouTube API
+    // Añade más categorías si quieres
   ];
 
   return (
-    <div className="c-filtro-dropdown">
-      <select
-        value={tipoSeleccionado}
-        onChange={(e) => onTipoChange(e.target.value)}
-        className="c-filtro-select"
-      >
-        {tipos.map(({ id, label }) => (
-          <option key={id} value={id}>
-            {label}
-          </option>
-        ))}
-      </select>
+    <div className="c-filtro-container">
+      {tipos.map(({ id, label }) => (
+        <button
+          key={id}
+          className={`c-filtro-boton ${tipoSeleccionado === id ? 'activo' : ''}`}
+          onClick={() => onTipoChange(id)}
+          type="button"
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 }
