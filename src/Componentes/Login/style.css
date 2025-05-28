@@ -19,10 +19,10 @@ body, html {
   background-color: #ffffff;
   padding: 3rem 4rem;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 24px rgba(235, 1, 1, 0.466);
   text-align: center;
-  width: 500px;
-  height: 550px;
+  width: 380px;
+  height: 450px;
 }
 
 .login-title {

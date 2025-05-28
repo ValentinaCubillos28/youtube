@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabase";
-import "./style.css"; 
+import "./usuario.css";
 
-export default function Usuarios() {
+export default function Usuario() {
   const [usuario, setUsuario] = useState(null);
   const [form, setForm] = useState({
     nombre: "",
     correo: "",
     fecha_nacimiento: "",
     telefono: "",
-    roll: "",
+    rol: ""
   });
   const [nuevaUrl, setNuevaUrl] = useState("");
   const [imagenes, setImagenes] = useState([]);
 
   useEffect(() => {
-    async function fetchUsuario() {
+    const fetchUsuario = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         const { data } = await supabase
@@ -29,7 +29,7 @@ export default function Usuarios() {
           fetchImagenes(user.id);
         }
       }
-    }
+    };
     fetchUsuario();
   }, []);
 
@@ -79,77 +79,58 @@ export default function Usuarios() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.reload();
+    alert("Sesión cerrada");
   };
 
-  if (!usuario) return <p className="cargando">Cargando datos...</p>;
+  if (!usuario) return <p>Cargando...</p>;
 
   return (
-    <div className="perfil-container">
+    <div className="usuario-container">
       <h2>Perfil de Usuario</h2>
-      <div className="perfil-form">
-        <label>
-          Nombre:
-          <input name="nombre" value={form.nombre} onChange={handleChange} />
-        </label>
-        <label>
-          Correo:
-          <input name="correo" value={form.correo} onChange={handleChange} />
-        </label>
-        <label>
-          Fecha de nacimiento:
+      {["nombre", "correo", "fecha_nacimiento", "telefono", "rol"].map((campo) => (
+        <label key={campo}>
+          {campo.charAt(0).toUpperCase() + campo.slice(1).replace("_", " ")}:
           <input
-            type="date"
-            name="fecha_nacimiento"
-            value={form.fecha_nacimiento}
+            name={campo}
+            value={form[campo]}
             onChange={handleChange}
+            type={campo === "correo" ? "email" : campo === "fecha_nacimiento" ? "date" : "text"}
           />
         </label>
-        <label>
-          Teléfono:
-          <input name="telefono" value={form.telefono} onChange={handleChange} />
-        </label>
-        <label>
-          Rol:
-          <input name="roll" value={form.roll} onChange={handleChange} />
-        </label>
-        <button className="btn-guardar" onClick={handleUpdate}>
-          Guardar cambios
-        </button>
-      </div>
+      ))}
+
+      <button onClick={handleUpdate}>Guardar cambios</button>
 
       <hr />
 
-      <div className="imagenes-seccion">
-        <h3>Agregar Imagen</h3>
+      <h3>Agregar imagen por URL</h3>
+      <div className="agregar-imagen">
         <input
           type="text"
           placeholder="URL de la imagen"
           value={nuevaUrl}
           onChange={(e) => setNuevaUrl(e.target.value)}
         />
-        <button className="btn-agregar" onClick={handleAgregarUrl}>
-          Agregar
-        </button>
+        <button onClick={handleAgregarUrl}>Agregar</button>
+      </div>
 
-        <h3>Imágenes guardadas</h3>
-        <ul className="imagenes-list">
-          {imagenes.map((img) => (
-            <li key={img.id}>
+      <h3>Imágenes guardadas</h3>
+      <div className="videos-grid">
+        {imagenes.length === 0 ? (
+          <p>No hay imágenes guardadas.</p>
+        ) : (
+          imagenes.map((img) => (
+            <div key={img.id} className="video-card">
               <img src={img.url} alt="Imagen" />
-              <button onClick={() => handleEliminarImagen(img.id)}>
-                Eliminar
-              </button>
-            </li>
-          ))}
-        </ul>
+              <button onClick={() => handleEliminarImagen(img.id)}>Eliminar</button>
+            </div>
+          ))
+        )}
       </div>
 
       <hr />
 
-      <button className="btn-logout" onClick={handleLogout}>
-        Cerrar sesión
-      </button>
+      <button className="cerrar-sesion" onClick={handleLogout}>Cerrar sesión</button>
     </div>
   );
 }
